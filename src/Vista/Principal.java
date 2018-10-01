@@ -11,7 +11,11 @@ import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,6 +38,7 @@ public class Principal extends javax.swing.JFrame {
         initComponents();
         this.setTitle("C.D.D.I - Pie de Página.");
         this.setResizable(false);
+        cargarDireccion();
         
     }  
 
@@ -286,7 +291,9 @@ public class Principal extends javax.swing.JFrame {
                                 this.jpbProgreso.setValue(progreso);
                                 this.jpbProgreso.update(this.jpbProgreso.getGraphics());
                             }
+                            escribirDireccion(this.jtfOrigen.getText(), this.jtfDestino.getText());
                             JOptionPane.showMessageDialog(null, "Se ha realizado con exito.");
+                            
                         }else{
                             JOptionPane.showMessageDialog(null, "La ruta de Destino no es correcta.");
                         }   
@@ -312,6 +319,43 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void cargarDireccion(){
+        try {
+            FileReader fOrigen = new FileReader(System.getProperty("user.dir")+"/Origen.txt");
+            BufferedReader br = new BufferedReader(fOrigen);
+            this.jtfOrigen.setText(br.readLine());
+            System.out.println(br.readLine());
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            FileReader fDestino = new FileReader(System.getProperty("user.dir")+"/Destino.txt");
+            BufferedReader br = new BufferedReader(fDestino);
+            this.jtfDestino.setText(br.readLine());
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void escribirDireccion(String origen, String destino){
+        try {
+            if((origen != null ) && (destino != null)) {
+            FileWriter fOrigen = new FileWriter(System.getProperty("user.dir")+"\\Origen.txt");
+            FileWriter fDestino = new FileWriter(System.getProperty("user.dir")+"\\Destino.txt");
+            fOrigen.write(origen);
+            fOrigen.close();
+            fDestino.write(destino);
+            fDestino.close();
+            }           
+        } catch (IOException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     private void jbCopiarOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCopiarOrigenActionPerformed
         String resultado = "";
         Clipboard cb = Toolkit.getDefaultToolkit().getSystemClipboard();
