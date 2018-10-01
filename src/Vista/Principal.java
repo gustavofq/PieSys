@@ -6,8 +6,6 @@
 package Vista;
 
 import java.awt.Color;
-import java.awt.Font;
-import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
@@ -21,7 +19,6 @@ import javax.swing.JOptionPane;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType0Font;
 
 /**
@@ -38,7 +35,7 @@ public class Principal extends javax.swing.JFrame {
         this.setTitle("C.D.D.I - Pie de Página.");
         this.setResizable(false);
         
-    }
+    }  
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -232,7 +229,6 @@ public class Principal extends javax.swing.JFrame {
 
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        obtenerFuentes();
         if(0==JOptionPane.showConfirmDialog(null, "Debe hacer un control de calidad de los documentos."+'\n'+ "Estas seguro de continuar?" ,"Antes de seguir", JOptionPane.OK_OPTION, JOptionPane.PLAIN_MESSAGE)){
             if(!this.jtfOrigen.getText().isEmpty()){
                 if(!this.jtfDestino.getText().isEmpty()){
@@ -309,29 +305,14 @@ public class Principal extends javax.swing.JFrame {
     private void jtfOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtfOrigenActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfOrigenActionPerformed
-
-    private void obtenerFuentes(){
-         GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
-         Font[] fuentes = environment.getAllFonts();
-         for(int i=0;i<fuentes.length;i++){
-             System.out.println(fuentes[i].getFamily());
-         }
-         /* 
-         PDFont font = PDTrueTypeFont.loadTTF(document, font[3]);
-         PDType0Font font = PDType0Font.load(document, new File("c:\\windows\\fonts\\Swis721_BlkOul_BT_Black.ttf"));
-         */
-         
-    }
     
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
         if(0==JOptionPane.showConfirmDialog(null, "Esta seguro que quiere salir?" ,"Antes de seguir", JOptionPane.OK_OPTION, JOptionPane.PLAIN_MESSAGE)){
             this.dispose();
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jbCopiarOrigenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCopiarOrigenActionPerformed
-        // TODO add your handling code here:
         String resultado = "";
         Clipboard cb = Toolkit.getDefaultToolkit().getSystemClipboard();
         Transferable contenido = cb.getContents(null);
@@ -346,7 +327,6 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jbCopiarOrigenActionPerformed
 
     private void jbCopiarDestinoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbCopiarDestinoActionPerformed
-        // TODO add your handling code here:
         String resultado = "";
         Clipboard cb = Toolkit.getDefaultToolkit().getSystemClipboard();
         Transferable contenido = cb.getContents(null);
@@ -361,22 +341,15 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jbCopiarDestinoActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        // TODO add your handling code here:
         JOptionPane.showMessageDialog(null, "PieSys agrega pie de pagina a los documentos PDF." + '\n'+ 
         "Desarrollado por Quintana Gustavo Fernando," + '\n'+
         "Con colaboracion de Ing. Cricel Gisela y todo el equipo de C.D.D.I" + '\n'+
+        "Corre: quintana.gustavo.f@gmail.com" + '\n'+
                 "® Todos los Derechos Reservados. ©");
         
     }//GEN-LAST:event_jMenuItem2ActionPerformed
-
-    
-    private void agregarPlaceHolder(){
-        
-    }
-    
-    
+      
     private void jmiSoporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiSoporteActionPerformed
-        // TODO add your handling code here:
         JOptionPane.showMessageDialog(null, "Oringe: ruta absoluta del directorio que contiene los documentos PDF a agregar pie de página."+'\n'+ 
                 "Destino: ruta absoluta del directorio que contendrá los documentos PDF con pie de página." + '\n' +
                 "boton ok: inicia el proceso de poner pie a los docuentos PDF del directorio origen."+'\n'+ 
