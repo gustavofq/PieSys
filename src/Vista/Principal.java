@@ -6,6 +6,8 @@
 package Vista;
 
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.GraphicsEnvironment;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
@@ -19,6 +21,7 @@ import javax.swing.JOptionPane;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType0Font;
 
 /**
@@ -165,15 +168,17 @@ public class Principal extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jtfOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbCopiarOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jbCopiarOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel1)
+                        .addComponent(jtfOrigen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jtfDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jbCopiarDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jbCopiarDestino, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(jtfDestino, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton1)
@@ -227,6 +232,7 @@ public class Principal extends javax.swing.JFrame {
 
     
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        obtenerFuentes();
         if(0==JOptionPane.showConfirmDialog(null, "Debe hacer un control de calidad de los documentos."+'\n'+ "Estas seguro de continuar?" ,"Antes de seguir", JOptionPane.OK_OPTION, JOptionPane.PLAIN_MESSAGE)){
             if(!this.jtfOrigen.getText().isEmpty()){
                 if(!this.jtfDestino.getText().isEmpty()){
@@ -261,7 +267,7 @@ public class Principal extends javax.swing.JFrame {
                                             contentStream.beginText();
                                             contentStream.newLineAtOffset(200, 50);
                                             contentStream.setNonStrokingColor(Color.BLUE);
-                                            PDType0Font font = PDType0Font.load(document, new File("c:\\windows\\fonts\\Swis721_BlkOul_BT_Black.ttf"));
+                                            PDType0Font font = PDType0Font.load(document, new File(System.getProperty("user.dir")+"/src/Fuentes/Swis721_BlkOul_BT_Black.ttf"));
                                             contentStream.setFont(font, 20 );
                                             contentStream.setLeading(14.5f);
                                             text="C.D.D.I - Página " + (i + 1) + " de " + noOfPages ;
@@ -304,6 +310,19 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jtfOrigenActionPerformed
 
+    private void obtenerFuentes(){
+         GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+         Font[] fuentes = environment.getAllFonts();
+         for(int i=0;i<fuentes.length;i++){
+             System.out.println(fuentes[i].getFamily());
+         }
+         /* 
+         PDFont font = PDTrueTypeFont.loadTTF(document, font[3]);
+         PDType0Font font = PDType0Font.load(document, new File("c:\\windows\\fonts\\Swis721_BlkOul_BT_Black.ttf"));
+         */
+         
+    }
+    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         if(0==JOptionPane.showConfirmDialog(null, "Esta seguro que quiere salir?" ,"Antes de seguir", JOptionPane.OK_OPTION, JOptionPane.PLAIN_MESSAGE)){
